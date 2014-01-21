@@ -35,11 +35,35 @@ and open the template in the editor.
                 &nbsp;&nbsp;
                 <img src="img/nytxt.gif" width="300">
             </div>
-            <br><br>
+            <br>
             <form action="register-ny-pc.php" method="POST" class="form-inline">    
-                <div class="row">
-                    <div class="span12">
-                        <div class="inline">
+                <div class="span12">
+                    <div class="inline">
+                        วันที่สมัคร&nbsp;<input class="span2" type="datetime" name="regdate">
+                        ตำแหน่ง&nbsp;1.&nbsp;<input type="text" name="regdate">
+                        2.&nbsp;<input type="text" name="regdate">
+                    </div>
+                    <legend>ข้อมูลส่วนตัว</legend>
+                    <div class="inline">    
+                        <label class="radio">
+                            <input type="radio" name="prefix" value="1" checked> นาย
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="prefix" value="2" > นางสาว
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="prefix" value="3" > นาง
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="prefix" value="0" > อื่นๆ
+                        </label>
+                        <input type="text" name="pcode" class="input-small">
+                        ชื่อ-นามสกุล&nbsp;<input class="span3" id="prependedInput1" type="text" name="pname">
+                        ชื่อเล่น&nbsp;<input class="span1" id="prependedInput2" type="text" name="lname">
+                    </div>
+                        <br>
+                    <div class="inline">
+                        
                         <label class="radio">
                             <input type="radio" name="prefix" value="1" checked> Mr.
                         </label>
@@ -50,29 +74,116 @@ and open the template in the editor.
                             <input type="radio" name="prefix" value="3" > Mrs.
                         </label>
                         <label class="radio">
-                            <input type="radio" name="prefix" value="0" > อื่นๆ
+                            <input type="radio" name="prefix" value="0" > etc.
                         </label>
                         <input type="text" name="pcode" class="input-small">
-                        <div class="input-prepend">
-                            <span class="add-on">ชื่อ</span>
-                            <input class="span2" id="prependedInput1" type="text" name="pname">
-                        </div>
-                        <div class="input-prepend">
-                            <span class="add-on">นามสกุล</span>
-                            <input class="span2" id="prependedInput2" type="text" name="lname">
-                        </div>
-                        </div>
+                        Name&nbsp;<input class="span3" id="prependedInput1" type="text" name="pname">
+                        Nickname&nbsp;<input class="span2" id="prependedInput2" type="text" name="lname">
+
                     </div>
-                    
-                    <br>
-                    
-                </div>
+                        <br>
+                    <div class="inline">
+                        
+                        เพศ&nbsp;<input class="span1" id="prependedInput1" type="text" name="pname">
+                        อายุ&nbsp;<input class="span1" id="prependedInput1" type="text" name="pname">&nbsp;ปี
+                        วัน/เดือน/ปี&nbsp;เกิด&nbsp;<input class="span1" id="prependedInput1" type="text" name="pname">
+                        สถานะสมรส&nbsp;
+                        <label class="radio">
+                            <input type="radio" name="prefix" value="1" checked> โสด
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="prefix" value="2" > สมรส
+                        </label>
+
+                    </div>
+                    <br><br><br>
                 </form>
-        <div class="container">
-        <br>
-        <p class="text-right"> NiyomPanich Company Limited. 2014.</p>
-        </div>
+                </div>
         
+        
+                    <div class="container">
+                    <br>
+                    <p class="text-right"> NiyomPanich Company Limited. 2014.</p>
+                    </div>
+        </div>
+                
+                <div class="container">
+<legend>Sign Up</legend>
+<div class="well">
+      <form id="signup" class="form-horizontal" method="post" action="success.php">
+		<legend>Sign Up</legend>
+		<div class="control-group">
+	        <label class="control-label">First Name</label>
+			<div class="controls">
+			    <div class="input-prepend">
+				<span class="add-on"><i class="icon-user"></i></span>
+					<input type="text" class="input-xlarge" id="fname" name="fname" placeholder="First Name">
+				</div>
+			</div>
+		</div>
+		<div class="control-group ">
+	        <label class="control-label">Last Name</label>
+			<div class="controls">
+			    <div class="input-prepend">
+				<span class="add-on"><i class="icon-user"></i></span>
+					<input type="text" class="input-xlarge" id="lname" name="lname" placeholder="Last Name">
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+	        <label class="control-label">Email</label>
+			<div class="controls">
+			    <div class="input-prepend">
+				<span class="add-on"><i class="icon-envelope"></i></span>
+					<input type="text" class="input-xlarge" id="email" name="email" placeholder="Email">
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+	        <label class="control-label">Gender</label>
+			<div class="controls">
+
+					<p><div id="gender" name="gender" class="btn-group" data-toggle="buttons-radio">
+                    <button type="button" class="btn btn-info">Male</button>
+                    <button type="button" class="btn btn-info">Female</button>
+
+                  </div></p>
+
+			</div>
+		</div>
+		<div class="control-group">
+	        <label class="control-label">Password</label>
+			<div class="controls">
+			    <div class="input-prepend">
+				<span class="add-on"><i class="icon-lock"></i></span>
+					<input type="Password" id="passwd" class="input-xlarge" name="passwd" placeholder="Password">
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+	        <label class="control-label">Confirm Password</label>
+			<div class="controls">
+			    <div class="input-prepend">
+				<span class="add-on"><i class="icon-lock"></i></span>
+					<input type="Password" id="conpasswd" class="input-xlarge" name="conpasswd" placeholder="Re-enter Password">
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group">
+		<label class="control-label"></label>
+	      <div class="controls">
+	       <button type="submit" class="btn btn-success" >Create My Account</button>
+
+	      </div>
+
+	</div>
+
+	  </form>
+
+   </div>
+</div>
+                
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
