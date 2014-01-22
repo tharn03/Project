@@ -6,84 +6,62 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>NiyomPanich Co.,Ltd.</title>
+        <title>eRecruitment System - NiyomPanich Co.,Ltd.</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body { background: url(img/bg-login-bw.gif); }
+            .container { background: transparent; }
+            #loginbox {
+                width:400px;
+                padding:10px;
+                border:5px solid white;
+                margin:10px;
+                border-radius:15px;
+                background: white;
+                box-shadow: 0px 0px 15px #888888;
+            }
+        </style>
     </head>
     <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="/index.html">NiyomPanich</a>
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li class="divider-vertical"></li>
-                        <li><a href="#">Link1</a></li>
-                        <li class="divider-vertical"></li>
-                        <li><a href="#">Link2</a></li>
-                        <li class="divider-vertical"></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <br><br><br>
-        <div class="container" id="border">
-            <div>
-                <br>
-                <img src="img/nylogo.gif" width="80">
-                &nbsp;&nbsp;
-                <img src="img/nytxt.gif" width="300">
-            </div>
-            <form action="register-ny.html" method="POST" class="form-search">
-                <br>
-                <select name="pcode">
-                    <option value="1111111111">1111111111</option>
-                    <option value="2222222222">2222222222</option>
-                </select>
-                <input type="submit" value="Submit" class="btn btn-success">
-                <br><br>
-                <input type="text" name="pcode" class="input-small">
-                <input type="submit" value="Submit" class="btn">
-                <br><br>
-                
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                
-                <div class="row">
-                    <div class="span12">
-                        <div class="inline">
-                        <label class="radio">
-                            <input type="radio" name="prefix" value="1" checked> Mr.
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="prefix" value="2" > Ms.
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="prefix" value="3" > Mrs.
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="prefix" value="0" > อื่นๆ
-                        </label>
-                        <input type="text" name="pcode" class="input-small">
-                        <div class="input-prepend">
-                            <span class="add-on">ชื่อ</span>
-                            <input class="span2" id="prependedInput1" type="text" name="pname">
-                        </div>
-                        <div class="input-prepend">
-                            <span class="add-on">นามสกุล</span>
-                            <input class="span2" id="prependedInput2" type="text" name="lname">
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+        <div><br><br><br><br><br><br><br><br></div>
         <div class="container">
-        <br>
-        <p class="text-right"> NiyomPanich Company Limited. 2014.</p>
+            <div class="row">
+                <div class="span3"></div>
+                <div class="span2 " id="loginbox">
+                    <div>
+                        <img src="img/nylogo.gif" width="80">
+                        &nbsp;&nbsp;
+                        <img src="img/nytxt.gif" width="300">
+                    </div>
+                    <br>
+                    <form class="form-horizontal" method="post" action="register-ny.php">
+                        <div class="control-group">
+                          <label class="control-label" for="inputEmail">Username</label>
+                          <div class="controls">
+                            <input type="text" id="inputEmail" placeholder="Username">
+                          </div>
+                        </div>
+                        <div class="control-group">
+                          <label class="control-label" for="inputPassword">Password</label>
+                          <div class="controls">
+                            <input type="password" id="inputPassword" placeholder="Password">
+                          </div>
+                        </div>
+                        <div class="control-group">
+                          <div class="controls">
+                            <button type="submit" class="btn btn-primary">เข้าระบบ</button>
+                            &nbsp;&nbsp;
+                            <button type="reset" class="btn btn">Reset</button>
+                          </div>
+                        </div>
+                      </form>
+                 </div>
+                <div class="span4"></div>
+            </div>
         </div>
+        
         
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/bootstrap.min.js"></script>
