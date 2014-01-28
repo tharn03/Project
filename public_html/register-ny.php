@@ -4,6 +4,22 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+    require_once "config.inc.php";
+    require_once "nocache.inc.php";
+    require_once "datahelper.inc.php";
+    mysql_connect($host,$dbuser,$dbpassword) or die ("ติดต่อ host ไม่ได้");
+    mysql_select_db($dbname) or die ("ติดต่อฐานข้อมูลไม่ได้");
+    mysql_query("SET NAMES utf8;");
+    $province = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    $province1 = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    $province2 = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    $province3 = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    $province4 = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    $province5 = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    $province6 = mysql_query("SELECT * FROM province ORDER BY PROVINCE_NAME");
+    mysql_close();
+?>
 <html>
     <head>
         <title>NiyomPanich Co.,Ltd.</title>
@@ -48,7 +64,7 @@ and open the template in the editor.
             </div>
             <br>
             <div class="form-inline">
-                วันที่สมัคร&nbsp;<input class="span2" type="datetime" name="regdate">
+                วันที่สมัคร&nbsp;<input class="input-small" type="text" value="<?php echo date('d-m-Y'); ?>" readonly />
                 ตำแหน่ง&nbsp;1.&nbsp;<input type="text" name="regdate">
                 2.&nbsp;<input type="text" name="regdate">
             </div>
@@ -68,8 +84,8 @@ and open the template in the editor.
                         <label class="radio">
                             <input type="radio" name="prefix" value="0" > อื่นๆ
                         </label>
-                        <input type="text" name="pcode" class="input-small">
-                        ชื่อ-นามสกุล&nbsp;<input class="span3" id="prependedInput1" type="text" name="pname">
+                        <input type="text" name="pcode" class="input-small">&nbsp;
+                        ชื่อ-นามสกุล&nbsp;<input class="span3" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
                         ชื่อเล่น&nbsp;<input class="span2" id="prependedInput2" type="text" name="lname">
                     </div>
                         <br>
@@ -87,8 +103,8 @@ and open the template in the editor.
                         <label class="radio">
                             <input type="radio" name="prefix" value="0" > etc.
                         </label>
-                        <input type="text" name="pcode" class="input-small">
-                        Name&nbsp;<input class="span3" id="prependedInput1" type="text" name="pname">
+                        <input type="text" name="pcode" class="input-small">&nbsp;
+                        Name&nbsp;<input class="span3" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
                         Nickname&nbsp;<input class="span2" id="prependedInput2" type="text" name="lname">
 
                     </div>
@@ -98,7 +114,12 @@ and open the template in the editor.
                         เพศ&nbsp;<input class="span1" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
                         อายุ&nbsp;<input class="span1" id="prependedInput1" type="text" name="pname">&nbsp;ปี&nbsp;&nbsp;
                         วัน/เดือน/ปี&nbsp;เกิด&nbsp;<input class="span2" id="prependedInput1" type="date" name="pname">&nbsp;&nbsp;
-                        จังหวัดที่เกิด&nbsp;<input class="span2" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
+                        จังหวัดที่เกิด&nbsp;<select name="province" class="input-medium">
+                                        <option value="a" selected disabled>เลือกจังหวัด</option>
+                                        <?php while($pv_list = mysql_fetch_array($province)) { ?>
+                                        <option value="<?php echo $pv_list['PROVINCE_ID']; ?>"><?php echo $pv_list['PROVINCE_NAME']; ?></option>
+                                        <?php } ?>
+                                      </select>&nbsp;&nbsp;
                         
                     </div>
                         <br>
@@ -111,7 +132,7 @@ and open the template in the editor.
                                         <option>A</option>
                                         <option>B</option>
                                         <option>AB</option>
-                                    </select>
+                                    </select>&nbsp;&nbsp;
                         ศาสนา&nbsp;<input class="input-small" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
                         เชื้อชาติ&nbsp;<input class="input-small" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
                         
@@ -119,7 +140,7 @@ and open the template in the editor.
                         <br>
                     <div class="inline">
                         
-                        เชื้อชาติ&nbsp;<input class="input-small" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
+                        สัญชาติ&nbsp;<input class="input-small" id="prependedInput1" type="text" name="pname">&nbsp;&nbsp;
                         สถานะสมรส&nbsp;
                         <label class="radio">
                             <input type="radio" name="prefix" value="1" checked> โสด
@@ -162,7 +183,7 @@ and open the template in the editor.
                         <br>
                     <div class="inline">
                         
-                        ปฏิบัติงานต่างจังหวัด
+                        ปฏิบัติงานต่างจังหวัด&nbsp;
                         <label class="radio">
                             <input type="radio" name="prefix1" value="2" >ได้&nbsp;
                         </label>
@@ -179,85 +200,11 @@ and open the template in the editor.
                         
                         เลขที่บัตรประชาชน&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp; 
                         ออกให้&nbsp;ณ&nbsp;อำเภอ&nbsp;<input class="input-small" type="text" name="pname">&nbsp;&nbsp;
-                        จังหวัด&nbsp;<select name="province" class="input-medium">
+                        จังหวัด&nbsp;<select name="per_province" class="input-medium">
                                         <option value="" selected>เลือกจังหวัด</option>
-                                        <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-                                        <option value="กระบี่">กระบี่ </option>
-                                        <option value="กาญจนบุรี">กาญจนบุรี </option>
-                                        <option value="กาฬสินธุ์">กาฬสินธุ์ </option>
-                                        <option value="กำแพงเพชร">กำแพงเพชร </option>
-                                        <option value="ขอนแก่น">ขอนแก่น</option>
-                                        <option value="จันทบุรี">จันทบุรี</option>
-                                        <option value="ฉะเชิงเทรา">ฉะเชิงเทรา </option>
-                                        <option value="ชัยนาท">ชัยนาท </option>
-                                        <option value="ชัยภูมิ">ชัยภูมิ </option>
-                                        <option value="ชุมพร">ชุมพร </option>
-                                        <option value="ชลบุรี">ชลบุรี </option>
-                                        <option value="เชียงใหม่">เชียงใหม่ </option>
-                                        <option value="เชียงราย">เชียงราย </option>
-                                        <option value="ตรัง">ตรัง </option>
-                                        <option value="ตราด">ตราด </option>
-                                        <option value="ตาก">ตาก </option>
-                                        <option value="นครนายก">นครนายก </option>
-                                        <option value="นครปฐม">นครปฐม </option>
-                                        <option value="นครพนม">นครพนม </option>
-                                        <option value="นครราชสีมา">นครราชสีมา </option>
-                                        <option value="นครศรีธรรมราช">นครศรีธรรมราช </option>
-                                        <option value="นครสวรรค์">นครสวรรค์ </option>
-                                        <option value="นราธิวาส">นราธิวาส </option>
-                                        <option value="น่าน">น่าน </option>
-                                        <option value="นนทบุรี">นนทบุรี </option>
-                                        <option value="บึงกาฬ">บึงกาฬ</option>
-                                        <option value="บุรีรัมย์">บุรีรัมย์</option>
-                                        <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์ </option>
-                                        <option value="ปทุมธานี">ปทุมธานี </option>
-                                        <option value="ปราจีนบุรี">ปราจีนบุรี </option>
-                                        <option value="ปัตตานี">ปัตตานี </option>
-                                        <option value="พะเยา">พะเยา </option>
-                                        <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา </option>
-                                        <option value="พังงา">พังงา </option>
-                                        <option value="พิจิตร">พิจิตร </option>
-                                        <option value="พิษณุโลก">พิษณุโลก </option>
-                                        <option value="เพชรบุรี">เพชรบุรี </option>
-                                        <option value="เพชรบูรณ์">เพชรบูรณ์ </option>
-                                        <option value="แพร่">แพร่ </option>
-                                        <option value="พัทลุง">พัทลุง </option>
-                                        <option value="ภูเก็ต">ภูเก็ต </option>
-                                        <option value="มหาสารคาม">มหาสารคาม </option>
-                                        <option value="มุกดาหาร">มุกดาหาร </option>
-                                        <option value="แม่ฮ่องสอน">แม่ฮ่องสอน </option>
-                                        <option value="ยโสธร">ยโสธร </option>
-                                        <option value="ยะลา">ยะลา </option>
-                                        <option value="ร้อยเอ็ด">ร้อยเอ็ด </option>
-                                        <option value="ระนอง">ระนอง </option>
-                                        <option value="ระยอง">ระยอง </option>
-                                        <option value="ราชบุรี">ราชบุรี</option>
-                                        <option value="ลพบุรี">ลพบุรี </option>
-                                        <option value="ลำปาง">ลำปาง </option>
-                                        <option value="ลำพูน">ลำพูน </option>
-                                        <option value="เลย">เลย </option>
-                                        <option value="ศรีสะเกษ">ศรีสะเกษ</option>
-                                        <option value="สกลนคร">สกลนคร</option>
-                                        <option value="สงขลา">สงขลา </option>
-                                        <option value="สมุทรสาคร">สมุทรสาคร </option>
-                                        <option value="สมุทรปราการ">สมุทรปราการ </option>
-                                        <option value="สมุทรสงคราม">สมุทรสงคราม </option>
-                                        <option value="สระแก้ว">สระแก้ว </option>
-                                        <option value="สระบุรี">สระบุรี </option>
-                                        <option value="สิงห์บุรี">สิงห์บุรี </option>
-                                        <option value="สุโขทัย">สุโขทัย </option>
-                                        <option value="สุพรรณบุรี">สุพรรณบุรี </option>
-                                        <option value="สุราษฎร์ธานี">สุราษฎร์ธานี </option>
-                                        <option value="สุรินทร์">สุรินทร์ </option>
-                                        <option value="สตูล">สตูล </option>
-                                        <option value="หนองคาย">หนองคาย </option>
-                                        <option value="หนองบัวลำภู">หนองบัวลำภู </option>
-                                        <option value="อำนาจเจริญ">อำนาจเจริญ </option>
-                                        <option value="อุดรธานี">อุดรธานี </option>
-                                        <option value="อุตรดิตถ์">อุตรดิตถ์ </option>
-                                        <option value="อุทัยธานี">อุทัยธานี </option>
-                                        <option value="อุบลราชธานี">อุบลราชธานี</option>
-                                        <option value="อ่างทอง">อ่างทอง </option>
+                                        <?php while($pv_list1 = mysql_fetch_array($province1)) { ?>
+                                        <option value="<?php echo $pv_list1['PROVINCE_ID']; ?>"><?php echo $pv_list1['PROVINCE_NAME']; ?></option>
+                                        <?php } ?>
                                   </select>&nbsp;&nbsp;
                         
                 </div>
@@ -274,15 +221,223 @@ and open the template in the editor.
                     <legend>ที่อยู่</legend>
                     <div class="inline">
                         
+                        <strong>ที่อยู่ปัจจุบัน</strong>&nbsp;
+                        เลขที่&nbsp;<input class="input-mini" type="text" name="pname">&nbsp;&nbsp;
+                        หมู่&nbsp;<input class="input-small" type="text" name="pname">&nbsp;&nbsp;
+                        ซอย&nbsp;<input class="input-small" type="text" name="pname">&nbsp;&nbsp;
+                        ถนน&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        ตำบล/แขวง&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        อำเภอ/เขต&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        จังหวัด&nbsp;<select name="nowadd_province" class="input-medium">
+                                        <option value="" selected>เลือกจังหวัด</option>
+                                        <?php while($pv_list2 = mysql_fetch_array($province2)) { ?>
+                                        <option value="<?php echo $pv_list2['PROVINCE_ID']; ?>"><?php echo $pv_list2['PROVINCE_NAME']; ?></option>
+                                        <?php } ?>
+                                  </select>&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        รหัสไปรษณีย์&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        โทรศัพท์&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        มือถือ&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        <label class="checkbox">
+                            <input type="checkbox"> ตามที่อยู่ปัจจุบัน
+                        </label>
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        <strong>ที่อยู่ตามทะเบียนบ้าน</strong>&nbsp;
+                        เลขที่&nbsp;<input class="input-mini" type="text" name="pname">&nbsp;&nbsp;
+                        หมู่&nbsp;<input class="input-small" type="text" name="pname">&nbsp;&nbsp;
+                        ซอย&nbsp;<input class="input-small" type="text" name="pname">&nbsp;&nbsp;
+                        ถนน&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        ตำบล/แขวง&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        อำเภอ/เขต&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        จังหวัด&nbsp;<select name="peradd_province" class="input-medium">
+                                        <option value="" selected>เลือกจังหวัด</option>
+                                        <?php while($pv_list3 = mysql_fetch_array($province3)) { ?>
+                                        <option value="<?php echo $pv_list3['PROVINCE_ID']; ?>"><?php echo $pv_list3['PROVINCE_NAME']; ?></option>
+                                        <?php } ?>
+                                  </select>&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        รหัสไปรษณีย์&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        โทรศัพท์&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        มือถือ&nbsp;<input class="input" type="text" name="pname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <div class="inline">
+                        
                         
                         
                     </div>
+                    
             </div>
             <div class="well">
                     <legend>ประวัติการศึกษา</legend>
+                    <table border='1' width='900' class="table table-bordered table-striped">
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>วุฒิการศึกษา</th>
+                            <th>สถาบันการศึกษา</th>
+                            <th>ปีที่จบ</th>
+                            <th>GPA</th>
+                            <th>คณะ</th>
+                            <th>สาขาวิชา</th>
+                        </tr>
+                        <tr>
+                            <td><input class="span1" type="text" name="lname"></td>
+                            <td><input class="input-mini" type="text" name="lname"></td>
+                            <td><input class="input" type="text" name="lname"></td>
+                            <td><input class="span1" type="text" name="lname"></td>
+                            <td><input class="span1" type="text" name="lname"></td>
+                            <td><input class="input-mini" type="text" name="lname"></td>
+                            <td><input class="input-mini" type="text" name="lname"></td>
+                        </tr>
+                    </table>
             </div>
             <div class="well">
                     <legend>ประวัติการทำงาน</legend>
+                    <div class="inline">
+                        
+                        บริษัท&nbsp;<input class="input-large" type="text" name="lname">&nbsp;&nbsp;
+                        วันที่เริ่ม&nbsp;<input class="input" type="date" name="lname">&nbsp;&nbsp;
+                        วันที่ออก&nbsp;<input class="input" type="date" name="lname">&nbsp;&nbsp;
+
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        ตำแหน่ง&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        ลักษณะงาน&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        สาเหตุที่ออก&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        เงินเดือนออกเมื่อ&nbsp;<input class="span2" type="date" name="lname">&nbsp;&nbsp;
+                        ผู้ที่ติดต่อได้&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        โทรศัพท์&nbsp;<input class="input" type="tel" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        หมายเหตุ&nbsp;<input class="input-xxlarge" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <hr>
+                    <div class="inline">
+                        
+                        บริษัท&nbsp;<input class="input-large" type="text" name="lname">&nbsp;&nbsp;
+                        วันที่เริ่ม&nbsp;<input class="input" type="date" name="lname">&nbsp;&nbsp;
+                        วันที่ออก&nbsp;<input class="input" type="date" name="lname">&nbsp;&nbsp;
+
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        ตำแหน่ง&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        ลักษณะงาน&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        สาเหตุที่ออก&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        เงินเดือนออกเมื่อ&nbsp;<input class="span2" type="date" name="lname">&nbsp;&nbsp;
+                        ผู้ที่ติดต่อได้&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        โทรศัพท์&nbsp;<input class="input" type="tel" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        หมายเหตุ&nbsp;<input class="input-xxlarge" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <hr>
+                    <div class="inline">
+                        
+                        **อาชีพอิสระ/อาชีพเสริม&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        ตำแหน่ง&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        บริษัท&nbsp;<input class="span2" type="text" name="lname">&nbsp;&nbsp;
+                        รายได้&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        ผู้ติดต่อได้&nbsp;<input class="input" type="tel" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        หมายเหตุ&nbsp;<input class="input-xxlarge" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <hr>
+                    <p><strong>*บริษัทในเครือของบริษัทนิยมพานิช จำกัด ประกอบด้วย สหพานิช,นิยมพานิชลำปาง,มิตรสินด่วน,วินเวฟ,ร้านตัวแทน</strong>&nbsp;<i class="icon-hand-down"></i></p>
+                    <br>
+                    <div class="inline">
+                        
+                        บริษัท&nbsp;<input class="input-large" type="text" name="lname">&nbsp;&nbsp;
+                        วันที่เริ่ม&nbsp;<input class="input" type="date" name="lname">&nbsp;&nbsp;
+                        วันที่ออก&nbsp;<input class="input" type="date" name="lname">&nbsp;&nbsp;
+
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        ตำแหน่ง&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        ลักษณะงาน&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        สาเหตุที่ออก&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        เงินเดือนออกเมื่อ&nbsp;<input class="span2" type="date" name="lname">&nbsp;&nbsp;
+                        ผู้ที่ติดต่อได้&nbsp;<input class="input" type="text" name="lname">&nbsp;&nbsp;
+                        โทรศัพท์&nbsp;<input class="input" type="tel" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <br>
+                    <div class="inline">
+                        
+                        หมายเหตุ&nbsp;<input class="input-xxlarge" type="text" name="lname">&nbsp;&nbsp;
+                        
+                    </div>
+                    <div class="inline">
+                        
+                        
+                        
+                    </div>
+                    
             </div>
             <div class="well">
                     <legend>ประวัติการฝึกงาน</legend>
