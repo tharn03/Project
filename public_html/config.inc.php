@@ -3,6 +3,9 @@ $host = "localhost";
 $dbuser = "root";
 $dbpassword = "";
 $dbname = "resume_info_db";
+mysql_connect($host,$dbuser,$dbpassword) or die ("ติดต่อ host ไม่ได้");
+mysql_select_db($dbname) or die ("ติดต่อฐานข้อมูลไม่ได้");
+mysql_query("SET NAMES utf8;");
 /*$conf = array();
 $conf['db'] = array();
 $conf['db']['host'] = 'localhost'; // host ของนักศึกษา
